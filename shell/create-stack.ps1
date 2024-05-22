@@ -1,7 +1,7 @@
 
 
 
-$STACK_NAME='Knocki-Lex' # Stack name must be lower case for S3 bucket naming convention
+$STACK_NAME='knocki-lex' # Stack name must be lower case for S3 bucket naming convention
 $KENDRA_WEBCRAWLER_URL= 'https://knocki.com/pages/faq' # Public or internal HTTPS website for Kendra to index via Web Crawler (e.g., https://www.investopedia.com/) - Please see https://docs.aws.amazon.com/kendra/latest/dg/data-source-web-crawler.html
 
 $AWS_REGION='us-east-1' # Stack deployment region
@@ -25,7 +25,8 @@ Write-Host "Creating Bucket: ${S3_ARTIFACT_BUCKET_NAME}"
 aws s3 mb "s3://$S3_ARTIFACT_BUCKET_NAME" --region $AWS_REGION --profile $AWS_PROFILE
 
 #Upload the contents of the  "../agent/" directory to the "agent" directory within the S3 bucket.
-aws s3 cp "C:\Project\Python\generative-ai-amazon-bedrock-langchain-agent-example\agent\" "s3://$S3_ARTIFACT_BUCKET_NAME/agent/" --region $AWS_REGION --recursive --exclude ".DS_Store" --exclude "*/.DS_Store" --profile $AWS_PROFILE
+$AGENT_PATH= (Resolve-Path -Path ".\agent\").Path
+aws s3 cp $AGENT_PATH "s3://$S3_ARTIFACT_BUCKET_NAME/agent/" --region $AWS_REGION --recursive --exclude ".DS_Store" --exclude "*/.DS_Store" --profile $AWS_PROFILE
 
 # Publish Lambda layers
 Write-Host "Publish Lambda layers"
@@ -88,11 +89,7 @@ Write-Host "LEX_BOT_ID: $LEX_BOT_ID"
 
 # Fetch Lambda ARN
 Write-Host "Fetch Lambda ARN"
-$LAMBDA_ARN = aws cloudformation describe-stacks `
-    --stack-name $STACK_NAME `
-    --region $AWS_REGION `
-    --query 'Stacks[0].Outputs[?OutputKey==`LambdaARN`].OutputValue' --output text `
-    --profile $AWS_PROFILE
+
 
 Write-Host "LAMBDA_ARN: $LAMBDA_ARN"
 
@@ -170,7 +167,7 @@ Write-Host "LEX_BOT_ALIAS_ID $LEX_BOT_ALIAS_ID"
 
 $UI_STACK_NAME = "$STACK_NAME-UI"
 $UI_TEMPLATE_PATH= (Resolve-Path -Path ".\cfn\Lex-UI.yaml").Path
-
+$SOURCE_URL= 'https://knocki.com'
 Write-Host "Create CloudFormation stack for Lex UI"
 aws cloudformation create-stack `
     --stack-name $UI_STACK_NAME `
@@ -179,7 +176,7 @@ aws cloudformation create-stack `
     "ParameterKey=LexV2BotId,ParameterValue=$($LEX_BOT_ID)" `
     "ParameterKey=LexV2BotAliasId,ParameterValue=$($LEX_BOT_ALIAS_ID)" `
     "ParameterKey=LexV2BotLocaleId,ParameterValue='en_US'" `
-    "ParameterKey=WebAppParentOrigin,ParameterValue=$($KENDRA_WEBCRAWLER_URL)" `
+    "ParameterKey=WebAppParentOrigin,ParameterValue=$($SOURCE_URL)" `
     "ParameterKey=ShouldLoadIframeMinimized,ParameterValue=true" `
     "ParameterKey=CodeBuildName,ParameterValue=$($UI_STACK_NAME)" `
     "ParameterKey=WebAppConfToolbarTitle,ParameterValue='FAQ'" `
