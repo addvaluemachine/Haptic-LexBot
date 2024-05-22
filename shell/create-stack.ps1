@@ -88,7 +88,11 @@ Write-Host "LEX_BOT_ID: $LEX_BOT_ID"
 
 # Fetch Lambda ARN
 Write-Host "Fetch Lambda ARN"
-
+$LAMBDA_ARN = aws cloudformation describe-stacks `
+    --stack-name $STACK_NAME `
+    --region $AWS_REGION `
+    --query 'Stacks[0].Outputs[?OutputKey==`LambdaARN`].OutputValue' --output text `
+    --profile $AWS_PROFILE
 
 Write-Host "LAMBDA_ARN: $LAMBDA_ARN"
 
@@ -152,10 +156,45 @@ Write-Host "KENDRA_WEBCRAWLER_DATA_SOURCE_ID $KENDRA_WEBCRAWLER_DATA_SOURCE_ID"
 Write-Host "Start Kendra data source sync job"
 aws kendra start-data-source-sync-job --id $KENDRA_WEBCRAWLER_DATA_SOURCE_ID --index-id $KENDRA_INDEX_ID --region $AWS_REGION --profile $AWS_PROFILE
 
+#Create a first Lex Bot version (fromm DRAFT) and PROD alias
+
+$localeSpecification = @"
+{ 
+    "en_US" : { 
+       "sourceBotVersion": "DRAFT"
+    }
+ }
+"@
+
+#Create a new version of the bot
+$CREATE_VERSION_RESPONSE = aws lexv2-models create-bot-version `
+    --bot-id $LEX_BOT_ID `
+    --bot-version-locale-specification "$localeSpecification" `
+    --region $AWS_REGION `
+    --profile $AWS_PROFILE
+
+$NEW_BOT_VERSION = ($CREATE_VERSION_RESPONSE | ConvertFrom-Json).botVersion 
+
+Write-Output "Created new version $NEW_BOT_VERSION"
+
+$NEW_ALIAS = 'PROD'
+
+#Create the PROD alias to point to the new version
+aws lexv2-models create-bot-alias `
+    --bot-id $LEX_BOT_ID `
+    --bot-alias-name $NEW_ALIAS `
+    --bot-version $NEW_BOT_VERSION `
+    --bot-alias-locale-settings "$localeSettings" `
+    --region $AWS_REGION `
+    --profile $AWS_PROFILE
+
+Write-Output "Created alias $NEW_ALIAS pointing to version $NEW_BOT_VERSION"
+
+#Get the new Alias ID
 $LEX_BOT_ALIAS_ID = aws lexv2-models list-bot-aliases `
     --bot-id $LEX_BOT_ID `
     --region $AWS_REGION `
-    --query "botAliasSummaries[?botAliasName=='TestBotAlias'].botAliasId" --output text `
+    --query "botAliasSummaries[?botAliasName==$NEW_ALIAS].botAliasId" --output text `
     --profile $AWS_PROFILE
 
 Write-Host "LEX_BOT_ALIAS_ID $LEX_BOT_ALIAS_ID"
