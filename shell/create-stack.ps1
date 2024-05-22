@@ -1,6 +1,5 @@
 
 
-
 $STACK_NAME='knocki-lex' # Stack name must be lower case for S3 bucket naming convention
 $KENDRA_WEBCRAWLER_URL= 'https://knocki.com/pages/faq' # Public or internal HTTPS website for Kendra to index via Web Crawler (e.g., https://www.investopedia.com/) - Please see https://docs.aws.amazon.com/kendra/latest/dg/data-source-web-crawler.html
 
@@ -152,8 +151,6 @@ Write-Host "KENDRA_WEBCRAWLER_DATA_SOURCE_ID $KENDRA_WEBCRAWLER_DATA_SOURCE_ID"
 # Start Kendra data source sync job
 Write-Host "Start Kendra data source sync job"
 aws kendra start-data-source-sync-job --id $KENDRA_WEBCRAWLER_DATA_SOURCE_ID --index-id $KENDRA_INDEX_ID --region $AWS_REGION --profile $AWS_PROFILE
-
-$LEX_BOT_ID='HIDXHUWLJW'
 
 $LEX_BOT_ALIAS_ID = aws lexv2-models list-bot-aliases `
     --bot-id $LEX_BOT_ID `
