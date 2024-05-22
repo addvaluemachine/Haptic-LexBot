@@ -156,7 +156,7 @@ Write-Host "KENDRA_WEBCRAWLER_DATA_SOURCE_ID $KENDRA_WEBCRAWLER_DATA_SOURCE_ID"
 Write-Host "Start Kendra data source sync job"
 aws kendra start-data-source-sync-job --id $KENDRA_WEBCRAWLER_DATA_SOURCE_ID --index-id $KENDRA_INDEX_ID --region $AWS_REGION --profile $AWS_PROFILE
 
-#Create a first Lex Bot version (fromm DRAFT) and PROD alias
+#Create the first Lex Bot version (from DRAFT) and a new PROD alias
 
 $localeSpecification = @"
 { 
@@ -189,6 +189,8 @@ aws lexv2-models create-bot-alias `
     --profile $AWS_PROFILE
 
 Write-Output "Created alias $NEW_ALIAS pointing to version $NEW_BOT_VERSION"
+
+##### Create Lex Bot UI stack #####
 
 #Get the new Alias ID
 $LEX_BOT_ALIAS_ID = aws lexv2-models list-bot-aliases `
