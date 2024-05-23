@@ -55,7 +55,7 @@ You must also have [AWS CLI](https://aws.amazon.com/cli/) installed. For instruc
    aws_secret_access_key = WtnHd.....
    aws_session_token = IQoJpZluX2.....
 ```
-3. Update the $AWS_PROFILE variable with the account name in the [create-stack.ps1](shell/create-stack.ps1) file. 
+3. Update the $AWS_PROFILE variable with the profile name (`1234567890_AWSAdministrator`) in the [create-stack.ps1](shell/create-stack.ps1) file. 
 
 
 ### Deployment 
@@ -76,11 +76,11 @@ The solution deployment automation script allows for automated solution provisio
 2. [Lex-UI.yaml](cfn/Lex-UI.yaml): for Lex bot UI, which includes the following resources:
 
 - An Amazon Lex bot UI CloudFormation stack:
- -Cognito Identity Pool used to pass temporary AWS credentials to the web app. You can optionally pass the ID of an existing Cognito Identity Pool to avoid creating a new one.
- -S3 buckets to host the web application and to store build artifacts.
- -Lambda functions used as CloudFormation Custom Resources to facilitate custom provisioning logic
- -CloudWatch Logs groups automatically created to log the output of the Lambda functions
- -Associated IAM roles for the stack resources
+ - Cognito Identity Pool used to pass temporary AWS credentials to the web app. You can optionally pass the ID of an existing Cognito Identity Pool to avoid creating a new one.
+ - S3 buckets to host the web application and to store build artifacts.
+ - Lambda functions used as CloudFormation Custom Resources to facilitate custom provisioning logic
+ - CloudWatch Logs groups automatically created to log the output of the Lambda functions
+ - Associated IAM roles for the stack resources
 
 AWS CloudFormation prepopulates stack parameters with the default values provided in the template. To provide alternative input values, you can specify parameters as environment variables that are referenced in the _`ParameterKey=<ParameterKey>,ParameterValue=<Value>`_ pairs in the below shell script's _`aws cloudformation create-stack`_ command. 
 
