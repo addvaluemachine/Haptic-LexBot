@@ -120,6 +120,8 @@ For more information, refer to the [Chat UI Documentation.](https://aws.amazon.c
 
 The look and feel of the chat can be customized using CSS. For more details, see the [CSS modification guide](https://github.com/aws-samples/aws-lex-web-ui/blob/master/README-css-style.md)
 
+To change some of the initial settings of the bot, such as the toolbar title or initial text, edit the lex-web-ui-loader-config.json file located in the S3 bucket where it is deployed. The name of the S3 bucket is should be 'lex-web-ui-codebuilddeploy-XXXXXXXXX-webappbucket-XXXXXXXXXXXX'. For more details, see the [updaing json configuration](https://catalog.us-east-1.prod.workshops.aws/workshops/94f60d43-15b7-45f4-bbbc-17889ae64ea0/en-US/lexwebui/embedding#update-json-file)
+
 ### Sources
 
 Based on the example [Source](https://github.com/aws-samples/generative-ai-amazon-bedrock-langchain-agent-example)
