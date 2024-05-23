@@ -82,9 +82,6 @@ class Tools:
             Avoid Providing Legal or Medical Advice.
             For any irrelevant to Knocki questions, respond with: "I am a Knocki AI assistant and I can only answer questions about Knocki."
 
-        Source Attribution:
-            List the sources used in the following format: [Source #: Source Title - Source Link].
-
         Question: {question}
         Context: {context}
 
