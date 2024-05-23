@@ -55,13 +55,13 @@ You must also have [AWS CLI](https://aws.amazon.com/cli/) installed. For instruc
    aws_secret_access_key = WtnHd.....
    aws_session_token = IQoJpZluX2.....
 ```
-3. Update the $AWS_PROFILE variable with the account name in the [create-stack.ps1](create-stack.ps1) file. 
+3. Update the $AWS_PROFILE variable with the account name in the [create-stack.ps1](shell/create-stack.ps1) file. 
 
 
 ### Deployment 
 The solution deployment automation script allows for automated solution provisioning through parameterized CloudFormation templates:
 
-1. [GenAI-FSI-Agent.yml](../cfn/GenAI-FSI-Agent.yml): for Lex bot which includes the following resources:
+1. [GenAI-FSI-Agent.yml](cfn/GenAI-FSI-Agent.yml): for Lex bot which includes the following resources:
 
 - An Amazon Lex bot configured through a bot import deployment package.
  - An S3 bucket that contains the Lambda agent handler, and Amazon Lex deployment packages.
@@ -73,7 +73,7 @@ The solution deployment automation script allows for automated solution provisio
 	- Amazon Kendra Web Crawler - Configured with a root domain that emulates the customer-specific website (for example, _<your-company>.com_).
  - [AWS Identity and Access Management](https://aws.amazon.com/iam/) (IAM) permissions for the preceding resources.
 
-2. [Lex-UI.yaml](../cfn/Lex-UI.yaml): for Lex bot UI, which includes the following resources:
+2. [Lex-UI.yaml](cfn/Lex-UI.yaml): for Lex bot UI, which includes the following resources:
 
 - An Amazon Lex bot UI CloudFormation stack:
  -Cognito Identity Pool used to pass temporary AWS credentials to the web app. You can optionally pass the ID of an existing Cognito Identity Pool to avoid creating a new one.
