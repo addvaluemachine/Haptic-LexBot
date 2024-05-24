@@ -112,7 +112,7 @@ Once the chatbot UI is open, proceed to test it with user messages.
 
 After AWS CloudFormation launches the stack (the status is `CREATE_COMPLETE`), you will see a link in the Outputs tab in the `SnippetUrl` output value. To access your chat's iFrame snippet code, navigate to the WebUI CloudFormation (with "lex-UI" in the name) stack's Outputs tab and locate the `SnippetUrl` link. You will see a code snippet that you can paste into your application.
 
-Please note that once the snippet is embedded, it can only be accessed from the website domain that it was configured with during the creation of the CloudFormation stack [Lex-UI.yaml](../cfn/Lex-UI.yaml).
+Please note that once the snippet is embedded, it can only be accessed from the website domain that it was configured with during the creation of the CloudFormation stack. The website domain is configured in [create-stack.ps1](shell\create-stack.ps1) file, `$UI_TEMPLATE_PATH` parameter.
 
 For more information, refer to the [Chat UI Documentation.](https://aws.amazon.com/blogs/machine-learning/deploy-a-web-ui-for-your-chatbot/) 
 

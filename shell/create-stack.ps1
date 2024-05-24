@@ -196,7 +196,7 @@ Write-Output "Created alias $NEW_ALIAS pointing to version $NEW_BOT_VERSION"
 $LEX_BOT_ALIAS_ID = aws lexv2-models list-bot-aliases `
     --bot-id $LEX_BOT_ID `
     --region $AWS_REGION `
-    --query "botAliasSummaries[?botAliasName==$NEW_ALIAS].botAliasId" --output text `
+    --query "botAliasSummaries[?botAliasName=='$NEW_ALIAS'].botAliasId" --output text `
     --profile $AWS_PROFILE
 
 Write-Host "LEX_BOT_ALIAS_ID $LEX_BOT_ALIAS_ID"
