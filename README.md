@@ -47,15 +47,17 @@ You must also have [AWS CLI](https://aws.amazon.com/cli/) installed. For instruc
 
 1. Obtain the access keys for the IAM identity account that will be used for deployment.
 
-2. Paste the credentials in your AWS credentials file (~/.aws/credentials). It should look like this:
+   a. Paste the credentials in your AWS credentials file (~/.aws/credentials). It should look like this:
 
-```
-   [1234567890_AWSAdministrator]
-   aws_access_key_id = ASIUQJ.....
-   aws_secret_access_key = WtnHd.....
-   aws_session_token = IQoJpZluX2.....
-```
-3. Update the $AWS_PROFILE variable with the profile name (`1234567890_AWSAdministrator`) in the [create-stack.ps1](shell/create-stack.ps1) file. 
+   ```
+      [1234567890_AWSAdministrator]
+      aws_access_key_id = ASIUQJ.....
+      aws_secret_access_key = WtnHd.....
+      aws_session_token = IQoJpZluX2.....
+   ```
+   b. Update the $AWS_PROFILE variable with the profile name (`1234567890_AWSAdministrator`) in the [create-stack.ps1](shell/create-stack.ps1) file. 
+
+2. Enable Bedrock service with access to Anthropic Claude 3 Sonnet model
 
 
 ### Deployment 
@@ -83,6 +85,17 @@ The solution deployment automation script allows for automated solution provisio
  - Associated IAM roles for the stack resources
 
 AWS CloudFormation prepopulates stack parameters with the default values provided in the template. To provide alternative input values, you can specify parameters as environment variables that are referenced in the _`ParameterKey=<ParameterKey>,ParameterValue=<Value>`_ pairs in the below shell script's _`aws cloudformation create-stack`_ command. 
+
+The parameters for the UI CloudFormation template ([create-stack.ps1](shell\create-stack.ps1)) include configuration settings such as the initial text that will appear in the bot, the toolbar title, and the color theme. These settings can be adjusted during the initial deployment or modified afterward by updating the CSS and/or json configuration (See [Customization of the UI](#Customization-of-the-UI)). 
+
+ ```
+    "ParameterKey=WebAppConfToolbarTitle,ParameterValue='FAQ'" `
+    "ParameterKey=WebAppConfBotInitialText,ParameterValue='How can I help?'" `
+    "ParameterKey=ToolbarColor,ParameterValue='#757575'" `
+    "ParameterKey=ChatBackgroundColor,ParameterValue='#FFFFFF'" `
+    "ParameterKey=BotChatBubble,ParameterValue='#ECEFF1'" `
+    "ParameterKey=CustomerChatBubble,ParameterValue='#80CBC4'" `
+ ```
 
 ### Run Deployment Automation Script
 
