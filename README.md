@@ -9,7 +9,7 @@
 - [Post-Deployment](#post-deployment)
 
 ## Overview
-This is a copany chatbot that is capable of producing human-like responses and engaging in natural language conversations by orchestrating a chain of calls to foundation models (FMs) and other augmenting tools based on user input. Instead of only fulfilling pre-defined intents through a static decision tree, agents are autonomous within the context of their suite of available tools. [Amazon Bedrock](https://aws.amazon.com/bedrock/) is a fully managed service that makes leading foundation models from AI companies available through an API along with developer tooling to help build and scale generative AI applications.
+This is a Company chatbot that is capable of producing human-like responses and engaging in natural language conversations by orchestrating a chain of calls to foundation models (FMs) and other augmenting tools based on user input. Instead of only fulfilling pre-defined intents through a static decision tree, agents are autonomous within the context of their suite of available tools. [Amazon Bedrock](https://aws.amazon.com/bedrock/) is a fully managed service that makes leading foundation models from AI companies available through an API along with developer tooling to help build and scale generative AI applications.
 
 This solution creates a generative AI agent powered by Amazon Bedrock. The agent can assist users with finding answers to FAQ based on the company's website.
 

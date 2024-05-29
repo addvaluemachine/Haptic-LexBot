@@ -1,7 +1,9 @@
 
+# This name will be used across multiple resources. Must be lower case for S3 bucket naming convention
+$STACK_NAME='knocki-lex' 
 
-$STACK_NAME='knocki-lex' # Stack name must be lower case for S3 bucket naming convention
-$KENDRA_WEBCRAWLER_URL= 'https://knocki.com/pages/faq' # Public or internal HTTPS website for Kendra to index via Web Crawler (e.g., https://www.investopedia.com/) - Please see https://docs.aws.amazon.com/kendra/latest/dg/data-source-web-crawler.html
+# Public or internal HTTPS website for Kendra to index via Web Crawler (e.g., https://www.investopedia.com/) - Please see https://docs.aws.amazon.com/kendra/latest/dg/data-source-web-crawler.html
+$KENDRA_WEBCRAWLER_URL= 'https://knocki.com/pages/faq' 
 
 $AWS_REGION='us-east-1' # Stack deployment region
 $AWS_PROFILE = '309847704252_AWSAdministratorAccess' 
