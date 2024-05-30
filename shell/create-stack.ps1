@@ -3,7 +3,15 @@
 $STACK_NAME='knocki-lex' 
 
 # Public or internal HTTPS website for Kendra to index via Web Crawler (e.g., https://www.investopedia.com/) - Please see https://docs.aws.amazon.com/kendra/latest/dg/data-source-web-crawler.html
-$KENDRA_WEBCRAWLER_URL= 'https://knocki.com/pages/faq' 
+$KENDRA_WEBCRAWLER_URL= @(
+    "https://knocki.com/pages/faq",
+    "http://support.knocki.com",
+    "https://support.knocki.com/hc/en-us/categories/360000701313-The-Basics",
+    "https://support.knocki.com/hc/en-us/categories/360000698714-Features-Integrations",
+    "https://support.knocki.com/hc/en-us/categories/360000698734-Troubleshooting",
+    "https://knocki.com/pages/knocki-terms-of-service",
+    "https://knocki.com/pages/privacy-policy"
+)
 
 $AWS_REGION='us-east-1' # Stack deployment region
 $AWS_PROFILE = '309847704252_AWSAdministratorAccess' 
